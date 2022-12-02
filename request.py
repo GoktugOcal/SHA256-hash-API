@@ -1,6 +1,6 @@
 import requests
 
-# url = 'http://127.0.0.1:5000/messages'
+# url = 'https://sha256-api.onrender.com:5000/messages'
 # myobj = "goktugocal"
 
 # x = requests.post(url, json = myobj)

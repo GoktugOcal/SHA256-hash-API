@@ -19,4 +19,4 @@ def get(hashed):
         return mess_store[hashed]
     else: return "404 - sent <hash> string not found in the storage"
 
-app.run(host='127.0.0.1', port=5000)
+app.run(host='0.0.0.0', port=5000)
