@@ -1,18 +1,22 @@
 import requests
-from flask import Flask, request
+from flask import Flask, request, render_template
 import hashlib
+
+mess_store = {}
 
 app = Flask(__name__)
 
 @app.route('/messages', methods=["POST"])
-def incrementer():
-    print(hashlib.sha256(request.json.encode()))
-    return True
+def post():
+    mess = request.json
+    hashed = hashlib.sha256(request.json.encode()).hexdigest()
+    mess_store[hashed] = mess
+    return hashed
 
-'''
-@app.route('/messages/<string:name>')
-def hello(name):
-    return "Hello " + name
-'''
+@app.route('/messages/<string:hashed>', methods=["GET"])
+def get(hashed):
+    if hashed in mess_store.keys():
+        return mess_store[hashed]
+    else: return "404 - sent <hash> string not found in the storage"
 
 app.run(host='127.0.0.1', port=5000)
