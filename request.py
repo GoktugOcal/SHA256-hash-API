@@ -1,14 +1,22 @@
 import requests
+import argparse
+ 
+ 
+parser = argparse.ArgumentParser()
+parser.add_argument("-r", "--request", required=True, type=str, help = "Request Method (GET, POST)")
+parser.add_argument("-m", "--message", required=True, type=str, help = "Message to send")
+args = parser.parse_args()
 
-url = 'https://sha256-api.onrender.com/messages'
-myobj = "goktugocal"
+message = args.message
 
-x = requests.post(url, json = myobj)
+if args.request == "POST":
+    url = 'https://sha256-api.onrender.com/messages'
+    x = requests.post(url, json = message)
+    print(x.text)
 
-
-# hashed = "e683c3e863b1718963a6ce705d8f8d821330540c3584b9d8d253cf2c6fe9d792"
-# url = 'https://sha256-api.onrender.com:5000/messages/' + hashed
-# x = requests.get(url)
-
-
-print(x.text)
+elif args.request == "GET":
+    url = 'https://sha256-api.onrender.com/messages/' + message
+    x = requests.get(url)
+    print(x.text)
+    
+else: print("Please enter a valid method...")
