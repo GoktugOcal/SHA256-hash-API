@@ -6,6 +6,11 @@ mess_store = {}
 
 app = Flask(__name__)
 
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+
+
 @app.route('/messages', methods=["POST"])
 def post():
     mess = request.json
@@ -19,4 +24,6 @@ def get(hashed):
         return mess_store[hashed]
     else: return "404 - sent <hash> string not found in the storage"
 
-app.run(host='0.0.0.0', port=5000)
+
+# print("APP STARTED.")
+# app.run(host='0.0.0.0', port=5000)
